@@ -24,13 +24,26 @@ void ADC_init() {
 }
 
 void drawBoard() {
-    for (int i = 0; i < 83; i += 20) {
-        for (int j = 0; j < 47; j += 7) {
-            nokia_lcd_set_cursor(i, j);
-            nokia_lcd_write_char('|', 1);
+    // Draw vertical lines across screen
+    for (int i = 0; i <= 84; i += 21) {
+        for (int j = 0; j < 48; ++j) {
+            if (i == 84) {
+                nokia_lcd_set_pixel(83, j, 1);
+            }
+            else {
+                nokia_lcd_set_pixel(i, j, 1);
+            }
         }
-        for (int k = 0; k < 83; ++k) {
-            
+    }
+    // Draw horizontal lines across screen
+    for (int h = 0; h <= 48; h += 12) {
+        for (int k = 0; k < 84; ++k) {
+            if (h == 48) {
+                nokia_lcd_set_pixel(k, 47, 1);
+            }
+            else {
+                nokia_lcd_set_pixel(k, h, 1);
+            }
         }
     }
     nokia_lcd_render();
@@ -49,19 +62,19 @@ int main(void) {
     
     // Task 1 (Joystick Input)
     taskJS.state = WAIT;
-    taskJS.period = 100;
+    taskJS.period = 50;
     taskJS.elapsedTime = taskJS.period;
     taskJS.tick = &JSTick;
     
     // Task 2 (Manage Grid)
     taskManageGrid.state = WAIT_POS;
-    taskManageGrid.period = 200;
+    taskManageGrid.period = 50;
     taskManageGrid.elapsedTime = taskManageGrid.period;
     taskManageGrid.tick = &manageGrid;
     
     // Task 3 (Nokia Display)
     taskNokiaDisp.state = WAIT;
-    taskNokiaDisp.period = 200;
+    taskNokiaDisp.period = 50;
     taskNokiaDisp.elapsedTime = taskNokiaDisp.period;
     taskNokiaDisp.tick = &nokiaDisplayTick;
     

@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <util/delay.h>
 
+// http://maxembedded.com/2011/06/the-adc-of-the-avr/
 unsigned short readADC(uint8_t channel) {
     channel &= 0x07;
     ADMUX = (ADMUX & 0xF8) | channel;
@@ -92,10 +93,28 @@ int nokiaDisplayTick(int state) {
      nokia_lcd_set_pixel(horiPos, vertPos, 1);
      nokia_lcd_render();
      */
+    unsigned char x = 2;
+    //unsigned char y = 6;
+    nokia_lcd_set_cursor(8,3);
+    nokia_lcd_write_char(x + '0', 1);
+    //nokia_lcd_write_char(y + '0', 1);
+    //nokia_lcd_write_char(y + '0', 1);
+    nokia_lcd_render();
     return 0;
 }
 
 // Manage Grid tick implementation
+/*
+ | 0 | 1 | 2 | 3 |
+ |---|---|---|---|
+ | 4 | 5 | 6 | 7 |
+ |---|---|---|---|
+ | 8 | 9 |10 |11 |
+ |---|---|---|---|
+ |12 |13 |14 |15 |
+ 
+ Each cell is associated with the above array indices
+ */
 int manageGrid(int state) {
     switch (state) { // State Transitions
         case WAIT_POS:
