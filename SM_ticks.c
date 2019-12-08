@@ -1001,6 +1001,7 @@ void resetGrid() {
     }
     tilesInPlay = 1;
     score = 0;
+    winningNum = 2048;
     LCD_ClearScreen();
     LCD_DisplayString(1, "Score:");
     LCD_DisplayString(17, "High Score:");
