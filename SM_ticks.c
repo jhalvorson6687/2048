@@ -1,5 +1,5 @@
 /*
- * Implementation of of the State Machines tick functions
+ * Implementation of the State Machines tick functions
  */
 
 #include <avr/io.h>
